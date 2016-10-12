@@ -6,9 +6,9 @@
 2. Open **Disk Utility**' and Unmount the card.
 3. Download .img file.
 4. Run in **Terminal**
-```bash
-sudo dd bs=4m if=imageFilePathAndName.img  of=/dev/rdiskn
-```
+	```bash
+	sudo dd bs=4m if=imageFilePathAndName.img  of=/dev/rdiskn
+	```
 > The last `n` is the n in name found in step 1.
 
 5. To see the progress, in **Terminal** press `Ctrl + t`.
