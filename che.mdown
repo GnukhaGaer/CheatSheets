@@ -1,14 +1,32 @@
-```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
+# Raspbian Setup
+
+## Write Rasbian image on SD card
+
+1. Find the name of the sd card in **System Information** app. It's in Card Reader section.
+2. Open **Disk Utility**' and Unmount the card.
+3. Download .img file.
+4. Run in **Terminal**
+```bash
+sudo dd bs=4m if=imageFilePathAndName.img  of=/dev/rdiskn
 ```
- 
-```python
-s = "Python syntax highlighting"
-print s
+> The last `n` is the n in name found in step 1.
+
+5. To see the progress, in **Terminal** press `Ctrl + t`.
+
+## BackUp Rasbian disk
+	
+1. Change dir to your image file.
+2. Run in **Terminal**
+```bash
+sudo dd bs=4m if=/dev/rdiskn | gzip > rasbianBackUp.img.gz
 ```
- 
+> The `n` in rdiskn is as in step above.
+
+### Restore from BackUp file
+
+1. Open **Disk Utility** and Unmount the card.
+2. Run in **Terminal**
+```bash
+gunzip --stdout rasbianBackUp.img.gz | sudo dd bs=4m of=/dev/rdiskn
 ```
-No language indicated, so no syntax highlighting. 
-But let's throw in a <b>tag</b>.
-```
+> The `n` in rdiskn is as in step above.
