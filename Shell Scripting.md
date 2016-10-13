@@ -79,18 +79,6 @@
 	```bash
 	#!/bin/bash
 	```
-
-* Execute the script:
-
-	```bash
-	./myScript.sh
-	```
-	
-	or: 
-	
-	```bash
-	myScript.sh
-	```
 	
 * A script example:
 
@@ -107,8 +95,17 @@
 	```bash	
 	chmod +x myScript.sh
 	```
+* Execute the script:
+
+	```bash
+	./myScript.sh
+	```
 	
+	or: 
 	
+	```bash
+	myScript.sh
+	```
 	
 ## Arguments and Conditionals:
 
