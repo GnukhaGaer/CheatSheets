@@ -5,6 +5,7 @@
 	```bash
 	echo "hello there!"
 	```
+	
 ## Redirecting Output
 
 * Write(append) to a file:
@@ -17,6 +18,7 @@
 	```bash
 	echo "new text" > file.txt
 	```
+	
 ## Examples:
 
 * count the words:
@@ -79,6 +81,7 @@
 	```
 
 * Execute the script:
+
 	```bash
 	./myScript.sh
 	```
@@ -88,6 +91,7 @@
 	```bash
 	myScript.sh
 	```
+	
 * A script example:
 
 	```bash
