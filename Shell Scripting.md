@@ -1,6 +1,6 @@
 # Shell Scripting
 
-1. Print something no the Terminal screen:
+* Print something no the Terminal screen:
 
 	```bash
 	echo "hello there!"
