@@ -104,7 +104,7 @@
 	or: 
 	
 	```bash
-	myScript.sh
+	bash myScript.sh
 	```
 	
 ## Arguments and Conditionals:
