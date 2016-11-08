@@ -10,7 +10,7 @@ There is no Account profile you can use to specify your GitLab credentials, so h
 The basic process to follow is outlined below:
 - Generate an SSH Public Key.
 - Apply the key to your GitLab user profile.
-- Use the **Clone from URL"** SourceTree feature to check out repositories from SourceTree using SSH.
+- Use the **Clone from URL** SourceTree feature to check out repositories from SourceTree using SSH.
 
 ## Generate an SSH Key
 
