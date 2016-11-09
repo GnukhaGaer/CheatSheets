@@ -8,11 +8,7 @@ Make the same **SSH** connection as with Raspbian.
 
 Add a **DNS**:
 
-```bash
-nano  /etc/resolv.conf
-```
-
-add the line: `nameserver 8.8.8.8`
+In the file `nano  /etc/resolv.conf` add the line: `nameserver 8.8.8.8`
 
 ## Update Kali
 
