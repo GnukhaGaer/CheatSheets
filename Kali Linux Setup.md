@@ -46,13 +46,17 @@ GPSD_SOCKET="/var/run/gpsd.sock"
 ```
 
 3. Verify if GPS adapter is passing info:
-Run: `cat /dev/ttyACM0`
-or: `gpsmon /dev/ttyACM0`
+
+  Run: `cat /dev/ttyACM0`
+
+  or: `gpsmon /dev/ttyACM0`
 
 Other info:
 
 - `ps ax | grep gpsd`
+
 - `lsof -i :2947`
+
 - `lsof -n | grep /dev/ttyACM0`
 
 4. Start monitoring:
@@ -67,10 +71,14 @@ killall gpsd; sleep 1; cgps
 2. `sudo apt-get install mysql-server`
 
 Login as root: `mysql -u root -p` and enter your password.
-Grant access to root from any server to any DB: `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;`
+
+Grant access to root from any server to any DB: 
+
+  `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;`
+
 Now you can connect with **MySQLWorkbench**.
 
-**[!]**If it's not starting:
+**[!]** If it's not starting:
 
 1. Check Firewall.
 2. Run: `sudo service mysql start`
