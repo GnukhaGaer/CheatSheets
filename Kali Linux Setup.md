@@ -30,7 +30,7 @@ sudo dpkg-reconfigure tzdata
 The same way as with Raspbian.
 
 ## GPS install and setup:
-1. install everything: `sudo apt-get install gpsd gpsd-clients python-gps`
+1. Install everything: `sudo apt-get install gpsd gpsd-clients python-gps`
 
 2. Modify: `nano  /etc/default/gpsd` so it looks like: 
 
@@ -81,6 +81,11 @@ Allow remote connections to the **mysql** server:
   - Change **bind-address** to be your server address: `bind-address=YOUR-SERVER-IP`
 
 Now you can connect with **MySQLWorkbench**.
+
+**Auto start MySQL service at boot**
+
+	- Enable: `sudo update-rc.d mysql defaults`
+	- Disable: `sudo update-rc.d mysql remove`
 
 **[!]** If it's not starting:
 
