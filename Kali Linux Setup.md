@@ -82,10 +82,10 @@ Allow remote connections to the **mysql** server:
 
 Now you can connect with **MySQLWorkbench**.
 
-**Auto start MySQL service at boot**
+**Auto start MySQL service at boot:**
 
-	- Enable: `sudo update-rc.d mysql defaults`
-	- Disable: `sudo update-rc.d mysql remove`
+- Enable: `sudo update-rc.d mysql defaults`
+- Disable: `sudo update-rc.d mysql remove`
 
 **[!]** If it's not starting:
 
