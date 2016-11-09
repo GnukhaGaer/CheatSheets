@@ -82,10 +82,10 @@ Allow remote connections to the **mysql** server:
 
 Now you can connect with **MySQLWorkbench**.
 
-**Auto start MySQL service at boot**(on Debian and Ubuntu):
+**Auto start MySQL service at boot**:
 
-- Enable: `sudo update-rc.d mysql defaults`
-- Disable: `sudo update-rc.d mysql remove`
+1. Open file: `sudo nano /etc/rc.local`
+2. Add the line: `/etc/init.d/mysql start`
 
 **[!]** If it's not starting:
 
