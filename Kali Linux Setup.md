@@ -75,13 +75,17 @@ Login as root: `mysql -u root -p` and enter your password.
 Grant access to root from any server to any DB: 
 
   `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;`
+  
+Allow remote connections to the **mysql** server:
+  - Open this file: `sudo nano /etc/mysql/my.cnf`
+  - Change **bind-address** to be your server address: `bind-address=YOUR-SERVER-IP`
 
 Now you can connect with **MySQLWorkbench**.
 
 **[!]** If it's not starting:
 
 1. Check Firewall.
-2. Run: `sudo service mysql start`
+2. Run: `sudo service mysql restart`
 
 
 ## Copy files from local to Kali
