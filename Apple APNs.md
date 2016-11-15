@@ -42,8 +42,102 @@
 ![push](https://cloud.githubusercontent.com/assets/10248885/20272887/a4af706e-aa8f-11e6-8f9d-fef19b619f4e.png)
 
 3. Select an App ID for your Apple Push Notification service SSL Certificate
-
+	
+	Here is choosed the app which will include this certificate.
+	
 	The App ID(bundle identifier) should have been created at this point.
 
+4. Create a Certificate Request file(**CSR**) on your Mac
 
+	It's a CertificateSigningRequest file isued by **KeyChain** app -> Certificate Assistant -> Request a Certificate from a Certificate Authority.
+
+5. Upload **CSR**
+
+6. Download and Open new created Certificate.
+
+7. Verify
+
+	Under App IDs the app id should have Push Notification Service **ENABLED**
+	
+	
+## Installing a Push Certificate on the Server
+
+	This step is basically installing a client SSL identity on the said Server.
+	
+	The Push Notification Certificate should have been created and installed(opened) on the local machine.
+	
+	The same Push Notification Certificate should have been imported into the App ID under Identifiers.
+
+1. Open **KeyChain Access** -> My Certificates
+
+2. Select the certificate **and** the key, then choose File -> Export Items.
+
+3. Save on disk with .p12 extension, then copy to the Server.
+
+4. **Test** the service
+
+Run in Terminal: `openssl pkcs12 -in My_Push_Certificate.p12 -out My_Push_Certificate.pem -nodes -clcerts`
+
+Create a **push_test.php** file containing:
+
+```php
+<?php
+
+// Insert the device token sent by Apple here (without spaces):
+$deviceToken = 'c3a9ec62e3591b71ba9e0d0320a5117b5cc6a3cd4ee660eed5086121d3d1cd0c';
+
+// Put your private key's passphrase here:
+$passphrase = '1234';
+
+$message = $argv[1];
+$url = $argv[2];
+
+if (!$message)
+    exit('Example Usage: $php push_test.php \'Message to be displayed\'' . "\n");
+
+////////////////////////////////////////////////////////////////////////////////
+
+$ctx = stream_context_create();
+stream_context_set_option($ctx, 'ssl', 'local_cert', 'My_Push_Certificate.pem');
+stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+
+// Open a connection to the APNS server
+$fp = stream_socket_client(
+  'ssl://gateway.sandbox.push.apple.com:2195', $err,
+  $errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
+
+if (!$fp)
+  exit("Failed to connect: $err $errstr" . PHP_EOL);
+
+echo 'Connected to APNS' . PHP_EOL;
+
+// Create the payload body
+$body['aps'] = array(
+  'alert' => $message,
+  'sound' => 'default',
+  );
+
+// Encode the payload as JSON
+$payload = json_encode($body);
+
+// Build the binary notification
+$msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
+
+// Send it to the server
+$result = fwrite($fp, $msg, strlen($msg));
+
+if (!$result)
+  echo 'Message not delivered' . PHP_EOL;
+else
+  echo 'Message successfully delivered' . PHP_EOL;
+
+// Close the connection to the server
+fclose($fp);
+```
+
+Copy your **.pem** certificate in the same folder with the **php** file.
+
+Change the certificate **name** and **passphrase** in the script.
+
+Usage example: `php push_test.php 'This is the Notification message'`
 
