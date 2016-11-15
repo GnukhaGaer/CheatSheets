@@ -141,3 +141,12 @@ Change the certificate **name** and **passphrase** in the script.
 
 Usage example: `php push_test.php 'This is the Notification message'`
 
+<img style="float: right;" src="">
+
+## APNs Certificates
+
+1. Generate and Download a corresponding client SSL certificate - this step fully enables push notifications - and later, install the client SSL certificate and key on your server.
+
+2. Enable Push Notifications in Project -> Capabilities -> Push Notifications -> [ON]
+
+**!** In your Developer Account, the Push Notification service will appear as **Configurable** (not Enabled) until you create a client SSL certificate.
