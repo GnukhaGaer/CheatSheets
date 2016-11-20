@@ -127,12 +127,29 @@ The use of an enumeration within the completion handler allows us to use a switc
 
 ## GCD Grand Central Dispatch
 
+Most common CGD pattern used to get one of the Background threds:
 ```swift
-DispatchQueue.global(qos: .background).async {
+DispatchQueue.global(qos: .default).async {
+    // Background thread
+    DispatchQueue.main.async {
+        // UI updates
+    }
+}
+```
+
+Queue attributes(**QOS**):
+- `.userInitiated`
+- `.default`
+- `.utility`
+- `.background`
+
+Some hight priority background work:
+```swift
+DispatchQueue(qos: .userInitiated).async {
     // do some task
 
     DispatchQueue.main.async {
-        update some UI
+		// update some UI
     }
 }
 ```
@@ -142,7 +159,6 @@ DispatchQueue.global(qos: .background).async {
 ```swift
 func loadImage(_ urlString: String, handler:@escaping (_ image:UIImage?)-> Void)
     {
-
         let imageURL: URL = URL(string: urlString)!
 
         URLSession.shared.dataTask(with: imageURL) { (data, _, _) in
@@ -163,9 +179,8 @@ loadImage("SomeURL") { (image) -> Void in
 }
 ```
 
-
-
-
+**A function for the background work:**
+```swift
 func backgroundThread(background: (() -> Void)? = nil, completion: (() -> Void)? = nil){
     DispatchQueue.global(qos: .background).async {
         if(background != nil){ background!(); }
@@ -175,15 +190,18 @@ func backgroundThread(background: (() -> Void)? = nil, completion: (() -> Void)?
         }
     }
 }
+```
 
 To run a process in the background then run a completion in the foreground:
 
+```swift
 backgroundThread(background: {
     // Your function here to run in the background
 },
 completion: {
     // A function to run in the foreground when the background thread is complete
 })
+```
 
 
 ## Closures and functions
