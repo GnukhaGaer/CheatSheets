@@ -71,8 +71,53 @@ downloadFileFromURL(NSURL(string: "url_str")!, { (success) -> Void in
 })
 ```
 
+**Better Completion Handlers in Swift**
 
+An enumeration defines a common type for a group of related values and 
+enables you to work with those values in a type-safe way within your code.
 
+```swift
+class ContentStore {
+
+	typealias CompletionHandlerType = (Result) -> Void
+  
+	enum Result {
+		case Success(AnyObject?)
+		case Failure(Error)
+	}
+  
+	enum Error: ErrorType {
+		case AuthenticationFailure
+	}
+  
+	func fetch(completionHandler: CompletionHandlerType) {
+		let random = Int(arc4random_uniform(7))
+		if (random > 4) {
+			completionHandler(Result.Success(1))
+		} else {
+			completionHandler(Result.Failure(Error.AuthenticationFailure))
+		}
+	}
+}
+```
+
+The completion handler is defined within a typealias. The completion handler returns the enumeration ‘Result‘. There are two enumeration values ‘Success’ or ‘Failure’. The ‘Success’ value takes an ‘AnyObject’ value and the success an enumeration ‘Error’ which is of type ‘ErrorType’ The ‘fetch’ function defines a random number and uses this value to either return a ‘Success’ or ‘Failure’, ‘Success’ if the random number if greater than 4.
+
+```swift
+ContentStore().fetch { (result) -> Void in
+	switch (result) {
+	case .Success(let number):
+		if let unwrappedNumber = number {
+			print("\(unwrappedNumber)")
+		}
+		break;
+	case .Failure(let error):
+		print("\(error)")
+		break;
+	}
+}
+```
+The use of an enumeration within the completion handler allows us to use a switch statement to respond to ‘Success’ or ‘Failure’. Once you are within the case either ‘Success’ or ‘Failure’ you can read the passed value.
 
 
 
@@ -92,7 +137,33 @@ DispatchQueue.global(qos: .background).async {
 }
 ```
 
-## 
+## GCD with Completion Handler
+
+```swift
+func loadImage(_ urlString: String, handler:@escaping (_ image:UIImage?)-> Void)
+    {
+
+        let imageURL: URL = URL(string: urlString)!
+
+        URLSession.shared.dataTask(with: imageURL) { (data, _, _) in
+            if let data = data{
+                handler(UIImage(data: data))
+            }
+        }.resume()
+    }
+```
+Call func like this:
+```swift
+loadImage("SomeURL") { (image) -> Void in
+	if let image = image{
+		DispatchQueue.main.async {
+			self.imageView.image = image
+		}
+	}
+}
+```
+
+
 
 
 func backgroundThread(background: (() -> Void)? = nil, completion: (() -> Void)? = nil){
