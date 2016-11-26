@@ -1,5 +1,9 @@
 # Swift 3 Language References
 
+##### Table of Contents 
+[Completion Handlers](#completion-handlers)
+[Better Completion Handlers in Swift](#better-completion-hadlers-in-swift)
+
 ## Completion Handlers
 
 **Example 1**
