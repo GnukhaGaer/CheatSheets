@@ -1,7 +1,7 @@
 # Introduction to Swift
 
 ##### Table of contents
-[Variables and constants](#variables-and-constants)
+[Variables and constants](#variables-and-constants)  
 [Array and Dictionary](#array and dictionary)
 [Loops](loops)
 
